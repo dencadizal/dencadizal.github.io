@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- 
+    META TAGS
+    These tell browsers and search engines about your page.
+    charset="UTF-8" ensures special characters display correctly.
+    viewport meta tag makes your site responsive on mobile devices.
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- This appears in the browser tab -->
+  <title>Denisse M. C.</title>
+  
+  <!-- 
+    STYLES
+    All CSS goes inside <style> tags.
+    We're keeping everything in one file for simplicity.
+  -->
+  <style>
+    /* 
+      CSS VARIABLES (Custom Properties)
+      Define colors once, use them everywhere.
+      This makes it easy to change colors later or add dark mode.
+      :root means these apply to the whole document.
+    */
+    :root {
+      --bg-color: #fafafa;
+      --text-color: #1a1a1a;
+      --text-muted: #666666;
+      --accent-color: #0066ff;
+      --heading-color: #1a1a1a;
+      --highlight-color: #1a1a1a;
+      --border-color: #e0e0e0;
+    }
+
+    /* 
+      DARK MODE VARIABLES
+      When <html> has class="dark", these colors override the defaults.
+      Same variable names, different values.
+    */
+    html.dark {
+      --bg-color: #0a0a0a;
+      --text-color: #fafafa;
+      --text-muted: #999999;
+      --accent-color: #4d94ff;
+      --heading-color: #32CD32;
+      --highlight-color: #FFDB58;
+      --border-color: #2a2a2a;
+    }
+
+    /* 
+      RESET & BASE STYLES
+      Remove default browser styling for consistency.
+      box-sizing: border-box makes width/height calculations easier.
+    */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* 
+      BODY STYLES
+      This applies to the whole page.
+      font-family lists fonts in order of preference (fallbacks).
+      line-height adds space between lines for readability.
+      transition makes color changes smooth (for dark mode toggle).
+    */
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* 
+      CONTAINER
+      Centers content and limits width for readability.
+      max-width prevents lines from getting too long on wide screens.
+      padding adds space on the sides (especially important on mobile).
+    */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* 
+      HEADER
+      Contains your name and the theme toggle.
+      display: flex puts items in a row.
+      justify-content: space-between pushes them to opposite ends.
+      align-items: center vertically centers them.
+    */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* 
+      LOGO/NAME
+      font-weight: 600 is semi-bold.
+      font-size: 1.25rem is relative to the base font size.
+    */
+    .logo {
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--heading-color);
+    }
+
+    /* 
+      THEME TOGGLE BUTTON
+      cursor: pointer shows a hand on hover.
+      background: none removes default button styling.
+      font-size: 1.5rem makes the emoji bigger.
+    */
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      padding: 0.25rem;
+    }
+
+    /* 
+      SECTIONS
+      Each content block (hero, about, projects, contact).
+      margin-bottom adds space between sections.
+    */
+    section {
+      margin-bottom: 3rem;
+    }
+
+    /* 
+      HEADINGS
+      margin-bottom adds space below the heading.
+      font-weight: 600 is semi-bold (not too heavy).
+    */
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--heading-color);
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--heading-color);
+    }
+
+    /* 
+      PARAGRAPHS
+      color uses our muted text variable for softer appearance.
+      margin-bottom adds space between paragraphs.
+    */
+    p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    /* 
+      LINKS
+      color: inherit means it takes the parent's color.
+      text-decoration-color adds subtle underline styling.
+      transition makes hover effect smooth.
+    */
+    a {
+      color: var(--accent-color);
+      text-decoration: underline;
+      text-decoration-color: transparent;
+      transition: text-decoration-color 0.2s ease;
+    }
+
+    a:hover {
+      text-decoration-color: var(--accent-color);
+    }
+
+    /* 
+      EXPERIENCE LIST
+    */
+    .experience-list {
+      list-style: none;
+    }
+
+    .experience-list li {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .experience-list li:last-child {
+      border-bottom: none;
+    }
+
+    /* 
+      JOB HEADER
+      Puts job title and date on the same line, pushed apart.
+      flex-wrap: wrap ensures it stacks on very small screens.
+    */
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .job-title {
+      font-weight: 600;
+      color: var(--highlight-color);
+    }
+
+    .job-date {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .job-company {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.125rem;
+    }
+
+    .job-location {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .job-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    /* 
+      SKILLS GRID
+      Uses CSS Grid to create a 2-column layout.
+      On mobile, it becomes 1 column automatically.
+    */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* 
+      @media query for mobile devices.
+      When screen is 600px or less, switch to 1 column.
+    */
+    @media (max-width: 600px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .skill-category h3 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--highlight-color);
+    }
+
+    .skill-category p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    /* 
+      CERTIFICATIONS LIST
+    */
+    .cert-list {
+      list-style: none;
+    }
+
+    .cert-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .cert-list li:last-child {
+      border-bottom: none;
+    }
+
+    .cert-name {
+      font-size: 0.9rem;
+      color: var(--highlight-color);
+    }
+
+    .cert-date {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* 
+      PROJECT LIST
+      list-style: none removes bullet points.
+    */
+    .project-list {
+      list-style: none;
+    }
+
+    .project-list li {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* 
+      :last-child removes the border from the last item.
+      This avoids a double-line at the end.
+    */
+    .project-list li:last-child {
+      border-bottom: none;
+    }
+
+    .project-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--highlight-color);
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* 
+      CONTACT LINKS
+      display: flex with gap creates evenly spaced items.
+    */
+    .contact-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    /* 
+      DARK MODE EASTER EGG
+      Hidden by default, only shows in dark mode.
+    */
+    .dark-mode-note {
+      display: none;
+    }
+
+    html.dark .dark-mode-note {
+      display: inline;
+      color: #89CFF0;
+    }
+
+    /* 
+      FOOTER
+      margin-top: auto would push it to bottom if we used flexbox on body.
+      font-size: 0.875rem is slightly smaller than normal text.
+    */
+    footer {
+      margin-top: 4rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 
+    CONTAINER
+    Wraps all content to center it and control width.
+  -->
+  <div class="container">
+    
+    <!-- 
+      HEADER
+      Contains logo/name and theme toggle.
+    -->
+    <header>
+      <div class="logo">Denisse Mae Cadizal</div>
+      
+      <!-- 
+        THEME TOGGLE
+        onclick runs JavaScript when clicked.
+        The emoji will change based on current mode.
+      -->
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        🌙
+      </button>
+    </header>
+
+    <!-- 
+      1. HERO SECTION
+    -->
+    <section id="hero">
+      <h1>Hey, I'm Denisse</h1>
+      <p>
+        I'm a Data Analytics Specialist based in Metro Manila, Philippines.
+        I turn complex data into clear, actionable insights.
+      </p>
+      <p>
+        This site is a work in progress. I'll be adding more features and polish over time. Stay tuned!
+        <span class="dark-mode-note">(A little bit of fun on dark mode)</span>
+      </p>
+    </section>
+
+    <!-- 
+      2. ABOUT SECTION
+    -->
+    <section id="about">
+      <h2>About</h2>
+      <p>
+        Detail-oriented and highly organized professional with more than 8 years 
+        of experience in data analysis, data modelling and software development. 
+        I specialize in managing complex datasets, problem-solving, and 
+        delivering accurate, actionable insights through data visualization.
+      </p>
+    </section>
+
+    <!-- 
+      3. EXPERIENCE SECTION
+    -->
+    <section id="experience">
+      <h2>Experience</h2>
+      <ul class="experience-list">
+        <li>
+          <div class="job-header">
+            <span class="job-title">Data Analytics Specialist</span>
+            <span class="job-date">Nov 2018 — Present</span>
+          </div>
+          <div class="job-company">bneXt Inc.</div>
+          <div class="job-location">Metro Manila, Philippines</div>
+          <p class="job-desc">
+            Design and implement ETL processes using SAP BW and Microsoft Fabric. 
+            Build interactive dashboards with Power BI and SAP Analytics Cloud. 
+            Write complex SQL and SAP ABAP for data transformation and automated reporting.
+          </p>
+        </li>
+        <li>
+          <div class="job-header">
+            <span class="job-title">Associate Software Engineer</span>
+            <span class="job-date">Jan 2017 — May 2018</span>
+          </div>
+          <div class="job-company">Accenture Inc.</div>
+          <div class="job-location">Metro Manila, Philippines</div>
+          <p class="job-desc">
+            Maintained 99% system uptime through production support and issue resolution. 
+            Enhanced SAP ABAP programs and created technical documentation for knowledge transfer.
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 
+      4. SKILLS SECTION
+    -->
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3>Languages & Databases</h3>
+          <p>SQL, SAP ABAP, SQL Server, SAP BW, Relational Databases</p>
+        </div>
+        <div class="skill-category">
+          <h3>BI & Visualization</h3>
+          <p>Microsoft Power BI, SAP Analytics Cloud, Data Modeling</p>
+        </div>
+        <div class="skill-category">
+          <h3>ETL & Cloud</h3>
+          <p>Microsoft Fabric, SAP BW, Microsoft Azure, SAP Cloud Platform</p>
+        </div>
+        <div class="skill-category">
+          <h3>Other Tools</h3>
+          <p>Advanced Excel, Version Control, Agile Development</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 
+      5. CERTIFICATIONS SECTION
+    -->
+    <section id="certifications">
+      <h2>Certifications</h2>
+      <ul class="cert-list">
+        <li>
+          <span class="cert-name">Microsoft Certified: Fabric Analytics Engineer Associate</span>
+          <span class="cert-date">2025</span>
+        </li>
+        <li>
+          <span class="cert-name">Microsoft Certified: Power BI Data Analyst Associate </span>
+          <span class="cert-date">2021</span>
+        </li>
+        <li>
+          <span class="cert-name">SAP Certified Application Associate – SAP Analytics Cloud</span>
+          <span class="cert-date">2020</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 
+      6. PROJECTS SECTION
+      Projects are all in progress, even with the ones not listed here
+    -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <ul class="project-list">
+        <li>
+          <div class="project-title">
+            <a href="https://github.com/dencadizal/dencadizal.github.io">Personal Website Creation with Claude AI</a>
+          </div>
+          <p class="project-desc">Using Anthropic's Claude to create a simple and minimalistic personal website. The website can be viewed on mobile and has a light and dark mode version for viewing. Made a little fun on the dark version too. The website will be updated from time to time.</p>
+        </li>
+        <li>
+          <div class="project-title">
+            <a>Power BI: Metaphor</a>
+          </div>
+          <p class="project-desc">A small Power BI report featuring Sega and JP: Atlus' Metaphor Refantazio game. Additional description and Github link will be followed once the project is completed.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 
+      7. CONTACT SECTION
+    -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Feel free to reach out if you want to connect.</p>
+      <div class="contact-links">
+        <a href="https://github.com/dencadizal" target="_blank">GitHub</a>
+        <a href="mailto:denissecadizal@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/denisse-mae-cadizal/" target="_blank">LinkedIn</a>
+        <a href="https://github.com/dencadizal/dencadizal.github.io/blob/main/Denisse%20Mae%20Cadizal%20-%20CV.pdf" target="_blank">Get my CV</a> 
+      </div>
+    </section>
+
+    <!-- 
+      8. FOOTER
+    -->
+    <footer>
+      <p>© 2026 Denisse Mae Cadizal. dencadizal on Github. All rights reserved.</p>
+    </footer>
+
+  </div>
+
+  <!-- 
+    JAVASCRIPT
+    Goes at the end of body so HTML loads first.
+    This handles the dark mode toggle.
+  -->
+  <script>
+    /*
+      toggleTheme()
+    */
+    function toggleTheme() {
+      const html = document.documentElement;
+      const toggle = document.querySelector('.theme-toggle');
+      
+      html.classList.toggle('dark');
+      
+      if (html.classList.contains('dark')) {
+        toggle.textContent = '☀️';
+      } else {
+        toggle.textContent = '🌙';
+      }
+    }
+  </script>
+
+</body>
+</html>
